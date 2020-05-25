@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  blogS3:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration: index.html
+      ErrorDocument: error.html
+
+
+  blogDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: CDN for equul.us blog
+        DefaultRootObject: index.html
+        Enabled: 'true'
+        Aliases:
+        - equul.us
+        - alex.equul.us
+        - !Join ['', [!Ref 'AWS::StackName', !Ref 'AWS::AccountId', ., !Ref 'AWS::Region',
+            ., !Ref 'HostedZone']]
+        DefaultCacheBehavior:
+          TargetOriginId: myS3Origin
+          ForwardedValues:
+            QueryString: 'true'
+          TargetOriginId: only-origin
+          ViewerProtocolPolicy: allow-all
+        Origins:
+          - CustomOriginConfig:
+              HTTPPort: '80'
+              HTTPSPort: '443'
+              OriginProtocolPolicy: 'http-only'
+            DomainName: !Sub "${AWS::StackName}.s3-website-${AWS::Region}.amazonaws.com"
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: 'true'
