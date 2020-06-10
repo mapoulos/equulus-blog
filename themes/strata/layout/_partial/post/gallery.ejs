@@ -1,0 +1,13 @@
+<% if (post.photos && post.photos.length){ %>
+  <div class="gallery-container">
+      <% if (post.photos.length){ %>
+          <% post.photos.forEach(function(photo){ %>
+              <div class="picture-container">
+                  <a href="#" data-featherlight="<%- url_for(photo) %>">
+                      <img src="<%- url_for(photo) %>" class="img-thumbnail" />
+                  </a>
+              </div>
+          <% }); %>
+      <% } %>
+  </div>
+<% } %>
