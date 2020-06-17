@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  blogS3:
+    Type: "AWS::S3::Bucket"
+    
+  blogReadPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref blogS3
+      PolicyDocument:
+        Statement:
+        - Action: 's3:GetObject'
+          Effect: Allow
+          Resource: !Sub 'arn:aws:s3:::${blogS3}/*'
+          Principal:
+            CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  CloudFrontOriginAccessIdentity:
+    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: Identity for Blog S3 Bucket access from CloudFront
+
+
+  blogDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: CDN for equul.us blog
+        CustomErrorResponses:
+        - ErrorCode: 403 # not found
+          ResponseCode: 404
+          ResponsePagePath: "/error.html"
+        DefaultCacheBehavior:
+          TargetOriginId: blogOrigin
+          ForwardedValues:
+            QueryString: 'true'
+          ViewerProtocolPolicy: redirect-to-https
+        Enabled: 'true'
+        HttpVersion: http2
+        Origins:
+          - DomainName: !GetAtt blogS3.DomainName
+            Id: blogOrigin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+        PriceClass: 'PriceClass_100'    
+        DefaultRootObject: index.html
+        Aliases:
+        - equul.us
+        # - !Join ['', [!Ref 'AWS::StackName', !Ref 'AWS::AccountId', ., !Ref 'AWS::Region',
+        #     ., !Ref 'HostedZone']]
+        ViewerCertificate:
+          AcmCertificateArn: !ImportValue EquulusCertificate
+          SslSupportMethod: 'sni-only'

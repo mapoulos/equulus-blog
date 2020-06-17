@@ -5,7 +5,7 @@
 # Site
 title: Equulus
 subtitle: Alex Poulos on Tech
-description: Here's some description
+description: A Technologist and Philologist on Technology
 keywords: technology serverless computing
 author: Alex Poulos
 language: en
@@ -95,7 +95,17 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: strata 
 
+deploy:
+  - ''
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: ''
+# deploy:
+#   type: s3-cloudfront
+#   bucket: equulus-blog-blogs3-187syz9kmeg2b
+#   force_overwrite: true
+#   region: us-east-1
+#   cf_distribution: E26V8V7GUAP7JY
+
+# plugins:
+  # - hexo-deployer-s3-cloudfront
+
