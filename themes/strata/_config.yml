@@ -5,16 +5,16 @@ gravatar_email: apviper@gmail.com
 default_post_title: Untitled
 
 # Default post cover index page (Recommended)
-default_cover_index: "http://placehold.it/450x320"
+# default_cover_index: "http://placehold.it/450x320"
 
 # Default post cover index page (Optional)
-default_cover_detail: "http://placehold.it/1300x500"
+# default_cover_detail: "http://placehold.it/1300x500"
 
 # Show Dates for posts and pages
 show_dates: true
 
 # Style of home page 'blog' or 'thumbs'
-style: blog
+style: thumbs
 
 # About page for call to action on home page
 about_page: about
@@ -23,14 +23,14 @@ about_page: about
 favicon: images/favicon.ico
 
 # Comments. Choose one by filling up the information
-comments:
+# comments:
   # Disqus comments
-  disqus_shortname: livingos
-  # Facebook comments
-  facebook:
-    appid:
-    comment_count: 5
-    comment_colorscheme: light
+  # disqus_shortname: livingos
+  # # Facebook comments
+  # facebook:
+  #   appid:
+  #   comment_count: 5
+  #   comment_colorscheme: light
 
 # Google Analytics Tracking ID
 google_analytics:
