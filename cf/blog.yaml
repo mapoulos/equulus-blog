@@ -38,6 +38,12 @@ Resources:
               // Extract the URI from the request
               var olduri = request.uri;
 
+              // if we have a url without .htm(l) at end,
+              // assume we need to add a slash
+              if(olduri.match(/\.html*$/) == null && !olduri.endsWith('/')) {
+                olduri = `${olduri}/`
+              }
+
               // Match any '/' that occurs at the end of a URI. Replace it with a default index
               var newuri = olduri.replace(/\/$/, '\/index.html');
               
@@ -63,7 +69,7 @@ Resources:
   blogRewriteLambdaVersion:
     Type: AWS::Lambda::Version
     Properties:
-      Description: Because we have to specify an exact version of the lambda for CloudFront trigger
+      Description: Because we have to specify an exact version of the lambda for CloudFront trigger (version)
       FunctionName: !GetAtt blogRewriteLambda.Arn
   blogRewriteLambdaRole:
     #AWS-DOC http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html

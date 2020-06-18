@@ -13,12 +13,12 @@
       <p>Add a description to your Hexo config file and it will show here. Or if your would rather have blog layout here you could set style in the theme config file to 'blog'. The button below will go to the page set by about_page in theme config .</p>
     <% }%>
     <ul class="actions">
-      <li><a href="<%- url_for(theme.about_page) -%>" class="button">Learn More</a></li>
+      <li><a href="<%- url_for(theme.about_page) -%>/" class="button">About Me</a></li>
     </ul>
   </section>
 
   <% if( theme.style == 'blog') { %>
-    <%- partial('_partial/archive', {pagination: config.archive}) %>
+    <%- partial('_partial/archive/', {pagination: config.archive}) %>
   <% } else { %>
 
     <!-- Two -->
@@ -35,6 +35,6 @@
     <%- partial('_partial/pagination') %>
 
     <ul class="actions">
-      <li><a href="<%- url_for('archives') -%>" class="button">Archives</a></li>
+      <li><a href="<%- url_for('archives') -%>/" class="button">Archives</a></li>
     </ul>
   </section>
