@@ -4,8 +4,6 @@ date: 2020-07-31 16:51:11
 tags:
 ---
 
-# Location, Location, Location
-
 ## The Task
 For my work with [CrossCut](https://crosscut.io), I’ve needed to get some R scripts running on big EC2 instances to do some geospatial processing. This involves loading in a bunch of files of various formats (CSVs, TIFs, and also SHP files).  The R scripts were written by a colleague; they naturally are tested first on his laptop and assume that data is going to be read from the local filesystem.
 
